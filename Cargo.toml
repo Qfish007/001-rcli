@@ -6,3 +6,11 @@ license = "MIT"   # 添加这一行
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 authors = ["Qfish007 <506175003@qq.com>"]
 [dependencies]
+anyhow = "1.0.100"
+
+# cargo add clap --features derive // --features derive 是用于获取指定的版本
+clap = { version = "4.5.53", features = ["derive"] }
+csv = "1.4.0"
+serde = { version = "1.0.228", features = ["derive"] }
+# duckdb = { version = "1.4.3", features = ["bundled"] }
+structopt = "0.3.26"
