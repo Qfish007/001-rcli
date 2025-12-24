@@ -1,8 +1,0 @@
-# rustfmt configuration file
-# https://rust-lang.github.io/rustfmt/
-
-# Don't reorder imports alphabetically
-reorder_imports = false
-
-# Use wide type punctuation (add spaces inside braces)
-type_punctuation_density = "Wide"
