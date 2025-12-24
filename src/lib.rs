@@ -1,14 +1,13 @@
-#![allow(unused)]
-fn test() {
-    println!("Hello, world!");
-}
+mod opts;
+mod process;
+
+pub use opts::{ Opts, SubCommand, CsvOpts };
+pub use process::process_csv;
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    // use super::*;
 
     #[test]
-    fn test_test() {
-        test();
-    }
+    fn test_test() {}
 }
