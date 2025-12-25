@@ -1,5 +1,6 @@
 use clap::Parser;
 use rcli::process_csv;
+use rcli::process_genpass;
 use rcli::Opts;
 use rcli::SubCommand;
 
@@ -17,6 +18,16 @@ fn main() -> anyhow::Result<()> {
 
             println!("{:?}", output);
             process_csv(&opts.input, &output, opts.format)?;
+        }
+        SubCommand::GenPass(opts) => {
+            let password = process_genpass(
+                opts.length,
+                opts.uppercase,
+                opts.lowercase,
+                opts.number,
+                opts.symbol,
+            )?;
+            println!("{}", password);
         }
     }
 
