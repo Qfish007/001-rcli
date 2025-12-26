@@ -1,8 +1,5 @@
 use clap::Parser;
-use rcli::process_csv;
-use rcli::process_genpass;
-use rcli::Opts;
-use rcli::SubCommand;
+use rcli::{process_csv, process_genpass, Opts, SubCommand};
 
 fn main() -> anyhow::Result<()> {
     let opts: Opts = Opts::parse();
@@ -28,6 +25,10 @@ fn main() -> anyhow::Result<()> {
                 opts.symbol,
             )?;
             println!("{}", password);
+        }
+        SubCommand::Base64(opts) => {
+            // TODO: implement base64 command
+            println!("base64 command not implemented yet, {:?}", opts);
         }
     }
 

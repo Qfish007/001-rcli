@@ -2,12 +2,15 @@
 name = "rcli"
 version = "0.1.0"
 edition = "2021"
-license = "MIT"   # 添加这一行
+license = "MIT"                                   # 添加这一行
+description = "A command line interface for Rust"
+repository = "https://github.com/Qfish007/rcli"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 authors = ["Qfish007 <506175003@qq.com>"]
 
 [dependencies]
 anyhow = "1.0.100"
+base64 = "0.22.1"
 clap = { version = "4.5.53", features = ["derive"] }
 csv = "1.4.0"
 rand = "0.9.2"

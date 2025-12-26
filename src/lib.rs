@@ -1,8 +1,13 @@
-mod opts;
+#[allow(unused)]
+mod cli;
+#[allow(unused)]
 mod process;
+#[allow(unused)]
+mod utils;
 
-pub use opts::{CsvOpts, GenPassOpts, Opts, OutputFormat, SubCommand};
-pub use process::{process_csv, process_genpass};
+pub use cli::*;
+pub use process::*;
+pub use utils::*;
 
 #[cfg(test)]
 mod tests {

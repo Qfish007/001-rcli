@@ -36,7 +36,7 @@ repos:
       - id: typos
         name: typos
         description: check typo
-        entry: bash -c 'typos'
+        entry: bash -c 'typos --exclude="*.md" --exclude="*.txt"'
         language: rust
         files: \.*$
         pass_filenames: false
