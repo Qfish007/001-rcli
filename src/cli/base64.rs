@@ -1,14 +1,12 @@
 use super::verify_file;
 use anyhow::Result;
 use clap::Parser;
-use std::{fmt, str::FromStr};
+use std::{ fmt, str::FromStr };
 
 #[derive(Debug, Parser)]
 pub enum Base64SubCommand {
-    #[command(name = "encode", about = "Encode a string to base64")]
-    Encode(Base64EncodeOpts),
-    #[command(name = "decode", about = "Decode a base64 string")]
-    Decode(Base64DecodeOpts),
+    #[command(name = "encode", about = "Encode a string to base64")] Encode(Base64EncodeOpts),
+    #[command(name = "decode", about = "Decode a base64 string")] Decode(Base64DecodeOpts),
 }
 
 #[derive(Debug, Parser)]
@@ -38,6 +36,7 @@ pub enum Base64Format {
 }
 
 impl FromStr for Base64Format {
+    // 从字符串解析Base64Format
     type Err = anyhow::Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
@@ -50,6 +49,7 @@ impl FromStr for Base64Format {
 }
 
 impl From<Base64Format> for &'static str {
+    // 将Base64Format转换为字符串
     fn from(format: Base64Format) -> Self {
         match format {
             Base64Format::Standard => "standard",
