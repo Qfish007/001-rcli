@@ -1,11 +1,10 @@
-use std::fs;
-
 use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine};
 use clap::Parser;
 use rcli::{
     process_csv, process_decode, process_encode, process_genpass, process_text_key_generate,
     process_text_sign, process_text_verify, Base64SubCommand, Opts, SubCommand, TextSubCommand,
 };
+use std::fs;
 mod utils;
 use crate::utils::*;
 fn main() -> anyhow::Result<()> {
