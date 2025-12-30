@@ -8,33 +8,32 @@
 // cbtmark echo  "baotao" 会换行
 
 /*
-    cargo run -- text sign -k ./fixtures/blake3.txt
+   cargo run -- text sign -k ./fixtures/blake3.txt
 
-    输入baotao 结果是 2TsEXzJZTNFxlI0dIsNbgHEcrzT0vXVPX1LMKp7Ql9c
-
-
-    cargo run -- text verify -k ./fixtures/blake3.txt --sig 2TsEXzJZTNFxlI0dIsNbgHEcrzT0vXVPX1LMKp7Ql9c
-    输入baotao 结果是 true
+   输入baotao 结果是 2TsEXzJZTNFxlI0dIsNbgHEcrzT0vXVPX1LMKp7Ql9c
 
 
+   cargo run -- text verify -k ./fixtures/blake3.txt --sig 2TsEXzJZTNFxlI0dIsNbgHEcrzT0vXVPX1LMKp7Ql9c
+   输入baotao 结果是 true
 
-    echo -n "baotao" | cargo run text sign --format blake3 --key fixtures/blake3.txt
- */
 
-use super::{ verify_file, verify_path };
-use base64::{ engine::general_purpose::URL_SAFE_NO_PAD, Engine };
+
+   echo -n "baotao" | cargo run text sign --format blake3 --key fixtures/blake3.txt
+*/
+
+use super::{verify_file, verify_path};
+use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine};
 use clap::Parser;
-use std::{ fmt, path::PathBuf, str::FromStr };
+use std::{fmt, path::PathBuf, str::FromStr};
 
 #[derive(Debug, Parser)]
 pub enum TextSubCommand {
-    #[command(about = "Sign a text with a private/session key and return a signature")] Sign(
-        TextSignOpts,
-    ),
-    #[command(about = "Verify a signature with a public/session key")] Verify(TextVerifyOpts),
-    #[command(about = "Generate a random blake3 key or ed25519 key pair")] Generate(
-        KeyGenerateOpts,
-    ),
+    #[command(about = "Sign a text with a private/session key and return a signature")]
+    Sign(TextSignOpts),
+    #[command(about = "Verify a signature with a public/session key")]
+    Verify(TextVerifyOpts),
+    #[command(about = "Generate a random blake3 key or ed25519 key pair")]
+    Generate(KeyGenerateOpts),
 }
 
 #[derive(Debug, Parser)]

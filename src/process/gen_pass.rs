@@ -12,7 +12,7 @@ pub fn process_genpass(
     upper: bool,
     lower: bool,
     number: bool,
-    symbol: bool
+    symbol: bool,
 ) -> anyhow::Result<String> {
     let mut rng = rand::thread_rng();
     let mut password = Vec::new();
@@ -37,7 +37,9 @@ pub fn process_genpass(
     }
 
     for _ in 0..length - (password.len() as u8) {
-        let c = chars.choose(&mut rng).expect("chars won't be empty in this context");
+        let c = chars
+            .choose(&mut rng)
+            .expect("chars won't be empty in this context");
         password.push(*c);
     }
 

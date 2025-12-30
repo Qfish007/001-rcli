@@ -1,10 +1,10 @@
 //
 
-use crate::{ process_genpass, TextSignFormat };
+use crate::{process_genpass, TextSignFormat};
 use anyhow::Result;
-use ed25519_dalek::{ Signature, Signer, SigningKey, Verifier, VerifyingKey };
+use ed25519_dalek::{Signature, Signer, SigningKey, Verifier, VerifyingKey};
 use rand::rngs::OsRng;
-use std::{ collections::HashMap, io::Read };
+use std::{collections::HashMap, io::Read};
 
 pub trait TextSigner {
     // 签名器，可以签名任何输入数据
@@ -122,7 +122,7 @@ impl Ed25519Verifier {
 pub fn process_text_sign(
     reader: &mut dyn Read,
     key: &[u8],
-    format: TextSignFormat
+    format: TextSignFormat,
 ) -> Result<Vec<u8>> {
     let signer: Box<dyn TextSigner> = match format {
         TextSignFormat::Blake3 => Box::new(Blake3::try_new(key)?),
@@ -136,7 +136,7 @@ pub fn process_text_verify(
     reader: &mut dyn Read,
     key: &[u8],
     sig: &[u8],
-    format: TextSignFormat
+    format: TextSignFormat,
 ) -> Result<bool> {
     let verifier: Box<dyn TextVerifier> = match format {
         TextSignFormat::Blake3 => Box::new(Blake3::try_new(key)?),
@@ -155,7 +155,7 @@ pub fn process_text_key_generate(format: TextSignFormat) -> Result<HashMap<&'sta
 #[cfg(test)]
 mod tests {
     use super::*;
-    use base64::{ engine::general_purpose::URL_SAFE_NO_PAD, Engine };
+    use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine};
 
     const KEY: &[u8] = include_bytes!("../../fixtures/blake3.txt");
 

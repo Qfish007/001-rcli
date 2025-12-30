@@ -1,12 +1,14 @@
 use super::verify_file;
 use anyhow::Result;
 use clap::Parser;
-use std::{ fmt, str::FromStr };
+use std::{fmt, str::FromStr};
 
 #[derive(Debug, Parser)]
 pub enum Base64SubCommand {
-    #[command(name = "encode", about = "Encode a string to base64")] Encode(Base64EncodeOpts),
-    #[command(name = "decode", about = "Decode a base64 string")] Decode(Base64DecodeOpts),
+    #[command(name = "encode", about = "Encode a string to base64")]
+    Encode(Base64EncodeOpts),
+    #[command(name = "decode", about = "Decode a base64 string")]
+    Decode(Base64DecodeOpts),
 }
 
 #[derive(Debug, Parser)]
