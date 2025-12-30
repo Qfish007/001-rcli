@@ -24,12 +24,9 @@
 use super::{ verify_file, verify_path };
 use base64::{ engine::general_purpose::URL_SAFE_NO_PAD, Engine };
 use clap::Parser;
-// use enum_dispatch::enum_dispatch;
 use std::{ fmt, path::PathBuf, str::FromStr };
-// use tokio::fs;
 
 #[derive(Debug, Parser)]
-// #[enum_dispatch(CmdExecutor)]
 pub enum TextSubCommand {
     #[command(about = "Sign a text with a private/session key and return a signature")] Sign(
         TextSignOpts,

@@ -68,7 +68,6 @@ impl TextVerifier for Ed25519Verifier {
 impl Blake3 {
     pub fn try_new(key: impl AsRef<[u8]>) -> Result<Self> {
         let key = key.as_ref();
-        // println!("xxxxxxxxxxxxx:{:?}", str::from_utf8(key).unwrap());
         let key = (&key[..32]).try_into()?;
         Ok(Self::new(key))
     }
@@ -80,7 +79,7 @@ impl Blake3 {
     fn generate() -> Result<HashMap<&'static str, Vec<u8>>> {
         let key = process_genpass(32, true, true, true, true)?;
         let mut map = HashMap::new();
-        map.insert("blake3.txt", key.as_bytes().to_vec());
+        map.insert("blake32.txt", key.as_bytes().to_vec());
         Ok(map)
     }
 }
@@ -99,8 +98,10 @@ impl Ed25519Signer {
 
     fn generate() -> Result<HashMap<&'static str, Vec<u8>>> {
         let mut csprng = OsRng;
+        // 私匙
         let sk: SigningKey = SigningKey::generate(&mut csprng);
-        let pk: VerifyingKey = (&sk).into();
+        // 公匙
+        let pk: VerifyingKey = (&sk).into(); // 从私匙派生公匙
         let mut map = HashMap::new();
         map.insert("ed25519.sk", sk.to_bytes().to_vec());
         map.insert("ed25519.pk", pk.to_bytes().to_vec());
@@ -120,7 +121,7 @@ impl Ed25519Verifier {
 
 pub fn process_text_sign(
     reader: &mut dyn Read,
-    key: &[u8], // (ptr, length)
+    key: &[u8],
     format: TextSignFormat
 ) -> Result<Vec<u8>> {
     let signer: Box<dyn TextSigner> = match format {
@@ -166,6 +167,7 @@ mod tests {
         let sig = process_text_sign(&mut reader, KEY, format)?;
         let ret = process_text_verify(&mut reader1, KEY, &sig, format)?;
         assert!(ret);
+        println!("sig: {:?}", sig);
         Ok(())
     }
 
@@ -173,7 +175,7 @@ mod tests {
     fn test_process_text_verify() -> Result<()> {
         let mut reader = "baotao".as_bytes();
         let format = TextSignFormat::Blake3;
-        let sig = "LzKK5ZKSJnxobEUSrpbS8lTY925Jpf_ZycM-sor3CkM";
+        let sig = "Fe1QxfINfMKR_vNvPS5lZ1ZTvFtKjVKSnLXO_kEMyVQ";
         let decoded = URL_SAFE_NO_PAD.decode(sig)?;
         let ret = process_text_verify(&mut reader, KEY, &decoded, format)?;
         assert!(ret);

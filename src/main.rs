@@ -1,3 +1,5 @@
+use std::fs;
+
 use clap::Parser;
 use rcli::{
     process_csv,
@@ -10,11 +12,13 @@ use rcli::{
     TextSubCommand,
     process_text_sign,
     process_text_verify,
+    process_text_key_generate,
 };
 use base64::{ engine::general_purpose::URL_SAFE_NO_PAD, Engine };
 mod utils;
 use crate::utils::*;
 fn main() -> anyhow::Result<()> {
+    test();
     let opts: Opts = Opts::parse();
     // println!("opts:{:?}", opts);
     match opts.cmd {
@@ -67,11 +71,21 @@ fn main() -> anyhow::Result<()> {
                     println!("result:{:?}", result);
                 }
                 TextSubCommand::Generate(opts) => {
-                    println!("{:?}", opts);
+                    let map = process_text_key_generate(opts.format)?;
+
+                    for (k, v) in map {
+                        let _ = fs::write(opts.output_path.join(k), v);
+                    }
                 }
             }
         }
     }
 
     Ok(())
+}
+
+fn test() {
+    let key: &[u8] = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".as_bytes();
+    let key: [u8; 8] = (&key[..8]).try_into().unwrap();
+    println!("key:{:?}", key)
 }

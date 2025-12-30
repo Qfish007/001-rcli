@@ -89,4 +89,5 @@ git commit -a -m "主要修改内容" -m "详细描述" -m "额外信息"
 git commit -a -m "feat: 新增功能描述"
 git commit -a -m "fix: 修复bug描述"
 git commit -a -m "docs: 更新文档"
+git commit --no-verify -m 'update' // 强制提交
 ```
