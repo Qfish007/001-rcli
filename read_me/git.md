@@ -77,6 +77,10 @@
 # 74. git gc --prune=now --aggressive --auto --threads=4 --quiet --verbose --progress // 自动清理仓库并删除长期未使用的对象，更激进，使用4个线程，静默模式，详细输出，显示进度
 # 75. git gc --prune=now --aggressive --auto --threads=4 --quiet --verbose --progress --no-progress // 自动清理仓库并删除长期未使用的对象，更激进，使用4个线程，静默模式，详细输出，显示进度，不显示进度
 # 76. git gc --prune=now --aggressive --auto --threads=4 --quiet --verbose --progress --no-progress --no-quiet // 自动清理仓库并删除长期未使用的对象，更激进，使用4个线程，详细输出，显示进度，不显示进度，不静默模式
+
+# 使用main 分支
+git branch -m master main
+
 ```
 
 
