@@ -1,14 +1,17 @@
 use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine};
 use clap::Parser;
 use rcli::{
-    process_csv, process_decode, process_encode, process_genpass, process_text_key_generate,
-    process_text_sign, process_text_verify, Base64SubCommand, Opts, SubCommand, TextSubCommand,
+    process_csv, process_decode, process_encode, process_genpass, process_http_serve,
+    process_text_key_generate, process_text_sign, process_text_verify, Base64SubCommand,
+    HttpSubCommand, Opts, SubCommand, TextSubCommand,
 };
 use std::fs;
 mod utils;
 use crate::utils::*;
-fn main() -> anyhow::Result<()> {
-    test();
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    tracing_subscriber::fmt::init();
     let opts: Opts = Opts::parse();
     // println!("opts:{:?}", opts);
     match opts.cmd {
@@ -64,11 +67,17 @@ fn main() -> anyhow::Result<()> {
                 }
             }
         },
+        SubCommand::Http(httpcmd) => match httpcmd {
+            HttpSubCommand::Serve(opts) => {
+                process_http_serve(opts.dir, opts.port).await?;
+            }
+        },
     }
 
     Ok(())
 }
 
+#[allow(unused)]
 fn test() {
     let key: &[u8] = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".as_bytes();
     let key: [u8; 8] = (&key[..8]).try_into().unwrap();

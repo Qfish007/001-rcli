@@ -1,0 +1,9 @@
+### Test static file
+
+GET http://0.0.0.0:8080/Cargo.toml
+
+### Test dynamic file
+GET http://0.0.0.0:8080/src/process/http_serve.rs
+
+### Test dynamic file
+GET http://localhost:8080/tower/Cargo.toml
